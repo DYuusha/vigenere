@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/jquery331.js"></script>
+  <script src="js/vegenere.js"></script>
+  <title>Cifrado Vegenere</title>
+</head>
+<body>
+  <div class="container">
+      <H1>Cifrado Vigenere</H1>
+      <form id="cifrar">
+          <div class="form-group">
+            <input type="form-text" class="form-control" id="texto" placeholder="Texto a Cifrar">
+         
+          </div>
+          <div class="form-group">
+            <input type="form-text" class="form-control" id="clave" placeholder="Clave">
+          </div>
+          <div class="form-group">
+            <select class="form-control" id="idioma">
+              <option>Español</option>
+              <option>Ingles</option>
+            </select>
+          </div>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="radios" id="cifrar" value="cifrar" checked>
+                Cifrar
+              </label>
+          </div>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="radios" id="descifrar" value="descifrar">
+                Descifrar
+              </label>
+          </div>
+            <br>
+          <button type="button" onclick="cifrado()" class="btn btn-dark">Aceptar</button>
+      </form>
+      <br>
+      <div id="resultado1">
+        
+      </div>
+
+      
+  </div>
+</body>
+</html>
