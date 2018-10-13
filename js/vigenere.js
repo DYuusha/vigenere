@@ -18,15 +18,22 @@ function cifrado(){
 		}
 	}
 }
+function validarAscii(caracter, tamAlfa,alfabeto){
+	for (var i = 0; i <tamAlfa; i++) {
+		if(caracter==alfabeto[i]){
+		return true; //es una letra del alfabeto
+	}
+	}
+	return false;	//es un simbolo o espacio
 
+}
 function cifradoIng(){
 	var tamAlfabe =26;
 	var texto=(document.getElementById('texto').value).toLowerCase();
 	var tamTexto = texto.length;
 	var clave =(document.getElementById('clave').value).toLowerCase();
-	console.log(texto);
-	console.log(clave);
-	var tamClave = clave.length;
+	//console.log(texto);
+	//console.log(clave);
 	var contClave=0;
 	//guardo el abecedario en ingles mayuscula
 	
@@ -37,13 +44,23 @@ function cifradoIng(){
 
 	// asignando el valor ascii a la clave
 	var valorClave =new Array();
+	var tamClave = clave.length;
+	var contaClave=0;
 	for(var i=0;i<tamClave; i++){
 		for (var j=0; j <tamAlfabe; j++) {
-			if(clave[i]==alfaIng[j]) 
-				valorClave[i]=j;
+			if(clave[i]==alfaIng[j]) {
+				valorClave[contaClave]=j;
+				contaClave++;
+				//console.log(j);
+			}		
 		}
+		//console.log("letra"+i);
+
 	}
-	//Asignando el valor ascii al texto
+	/*for(var i=0;i<valorClave.length; i++){
+		console.log(valorClave[i]);
+	}*/
+
 	var valorTexto =new Array();
 	for (var i = 0; i < tamTexto; i++) {
 		for (var j = 0; j < tamAlfabe; j++) {
@@ -59,17 +76,22 @@ function cifradoIng(){
 	}
 
 	//cifrando
+
+	//Asignando el valor ascii al texto
 	var textoCifrado= new Array();
+	//console.log(valorClave.length);
 	for(var i=0;i<tamTexto;i++){
 		//espacio
-		if(texto[i]!=' '){
+		if(validarAscii(texto[i], tamAlfabe,alfaIng)){
 			textoCifrado[i]=alfaIng[(valorTexto[i]+valorClave[contClave])%tamAlfabe];
 			contClave++;	
 		}
 		else{
-			textoCifrado[i]=' ';
+			textoCifrado[i]=texto[i];
 		}
-		if(contClave==tamClave){
+
+		if(contClave==(valorClave.length)){
+
 			contClave=0;
 		}
 	}
@@ -89,7 +111,6 @@ function cifradoEs(){
 	var clave =(document.getElementById('clave').value).toLowerCase();
 	console.log(texto);
 	console.log(clave);
-	var tamClave = clave.length;
 	var contClave=0;
 	//guardo el abecedario en espa;ol 
 	
@@ -105,14 +126,19 @@ function cifradoEs(){
 		}
 		console.log(alfaIng[i]);
 	}
-
-	// asignando el valor ascii a la clave
 	var valorClave =new Array();
+	var tamClave = clave.length;
+	var contaClave=0;
 	for(var i=0;i<tamClave; i++){
 		for (var j=0; j <tamAlfabe; j++) {
-			if(clave[i]==alfaIng[j]) 
-				valorClave[i]=j;
+			if(clave[i]==alfaIng[j]) {
+				valorClave[contaClave]=j;
+				contaClave++;
+				//console.log(j);
+			}		
 		}
+		//console.log("letra"+i);
+
 	}
 	//Asignando el valor ascii al texto
 	var valorTexto =new Array();
@@ -133,14 +159,16 @@ function cifradoEs(){
 	var textoCifrado= new Array();
 	for(var i=0;i<tamTexto;i++){
 		//espacio
-		if(texto[i]!=' '){
+		if(validarAscii(texto[i], tamAlfabe,alfaIng)){
 			textoCifrado[i]=alfaIng[(valorTexto[i]+valorClave[contClave])%tamAlfabe];
 			contClave++;	
 		}
 		else{
-			textoCifrado[i]=' ';
+			textoCifrado[i]=texto[i];
 		}
-		if(contClave==tamClave){
+
+		if(contClave==(valorClave.length)){
+
 			contClave=0;
 		}
 	}
@@ -160,7 +188,6 @@ function descifradoEs(){
 	var clave =(document.getElementById('clave').value).toLowerCase();
 	console.log(texto);
 	console.log(clave);
-	var tamClave = clave.length;
 	var contClave=0;
 	//guardo el abecedario en espa;ol 
 	
@@ -179,11 +206,18 @@ function descifradoEs(){
 
 	// asignando el valor ascii a la clave
 	var valorClave =new Array();
+	var tamClave = clave.length;
+	var contaClave=0;
 	for(var i=0;i<tamClave; i++){
 		for (var j=0; j <tamAlfabe; j++) {
-			if(clave[i]==alfaIng[j]) 
-				valorClave[i]=j;
+			if(clave[i]==alfaIng[j]) {
+				valorClave[contaClave]=j;
+				contaClave++;
+				//console.log(j);
+			}		
 		}
+		//console.log("letra"+i);
+
 	}
 	//Asignando el valor ascii al texto
 	var valorTexto =new Array();
@@ -204,21 +238,22 @@ function descifradoEs(){
 	var textoCifrado= new Array();
 	for(var i=0;i<tamTexto;i++){
 		//espacio
-		if(texto[i]!=' ' && (valorTexto[i]-valorClave[contClave])>=0){
+		if(validarAscii(texto[i], tamAlfabe,alfaIng) && (valorTexto[i]-valorClave[contClave])>=0){
 			textoCifrado[i]=alfaIng[(valorTexto[i]-valorClave[contClave])%tamAlfabe];
 			contClave++;	
 		}
-		else if (texto[i]!=' ' && (valorTexto[i]-valorClave[contClave])<0) {
+		else if (validarAscii(texto[i], tamAlfabe,alfaIng) && (valorTexto[i]-valorClave[contClave])<0) {
 			textoCifrado[i]=alfaIng[(valorTexto[i]-valorClave[contClave]+tamAlfabe)%tamAlfabe];
 			contClave++;
 		}
 		else{
-			textoCifrado[i]=' ';
+			textoCifrado[i]=texto[i];
 		}
-		if(contClave==tamClave){
+		if(contClave==valorClave.length){
 			contClave=0;
 		}
 	}
+	
 	div = document.getElementById("resultado1");
   var cadena = "";
   for(var i = 0; i < tamTexto; i++){
@@ -235,7 +270,6 @@ function descifradoIng(){
 	var clave =(document.getElementById('clave').value).toLowerCase();
 	console.log(texto);
 	console.log(clave);
-	var tamClave = clave.length;
 	var contClave=0;
 	//guardo el abecedario en ingles 
 	
@@ -246,11 +280,18 @@ function descifradoIng(){
 
 	// asignando el valor ascii a la clave
 	var valorClave =new Array();
+	var tamClave = clave.length;
+	var contaClave=0;
 	for(var i=0;i<tamClave; i++){
 		for (var j=0; j <tamAlfabe; j++) {
-			if(clave[i]==alfaIng[j]) 
-				valorClave[i]=j;
+			if(clave[i]==alfaIng[j]) {
+				valorClave[contaClave]=j;
+				contaClave++;
+				//console.log(j);
+			}		
 		}
+		//console.log("letra"+i);
+
 	}
 	//Asignando el valor ascii al texto
 	var valorTexto =new Array();
@@ -271,18 +312,18 @@ function descifradoIng(){
 	var textoCifrado= new Array();
 	for(var i=0;i<tamTexto;i++){
 		//espacio
-		if(texto[i]!=' ' && (valorTexto[i]-valorClave[contClave])>=0){
+		if(validarAscii(texto[i], tamAlfabe,alfaIng) && (valorTexto[i]-valorClave[contClave])>=0){
 			textoCifrado[i]=alfaIng[(valorTexto[i]-valorClave[contClave])%tamAlfabe];
 			contClave++;	
 		}
-		else if (texto[i]!=' ' && (valorTexto[i]-valorClave[contClave])<0) {
+		else if (validarAscii(texto[i], tamAlfabe,alfaIng) && (valorTexto[i]-valorClave[contClave])<0) {
 			textoCifrado[i]=alfaIng[(valorTexto[i]-valorClave[contClave]+tamAlfabe)%tamAlfabe];
 			contClave++;
 		}
 		else{
-			textoCifrado[i]=' ';
+			textoCifrado[i]=texto[i];
 		}
-		if(contClave==tamClave){
+		if(contClave==valorClave.length){
 			contClave=0;
 		}
 	}
